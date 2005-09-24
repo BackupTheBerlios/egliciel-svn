@@ -25,6 +25,17 @@
 	<property name="resources.dir" location="${basedir}/src/main/resources" /> 
 	<property name="resources-test.dir" location="${basedir}/src/test/resources" /> 
 	
+	<!-- reference to jars used for code compilation -->
+	<!-- directory containing jar used for compiling code-->
+	<property name="lib.compile.code.dir" location="${basedir}/lib" />
+	<!-- directory containing jar used for compiling unit tests -->
+	<property name="lib.compile.test.dir" location="${basedir}/lib-test" />
+
+	<!-- directory containing jar used for running/debugging the application -->
+	<property name="lib.run.code.dir" location="${basedir}/lib-run" />
+	<!-- directory containing jar used for running/debugging the unit tests -->
+	<property name="lib.run.test.dir" location="${basedir}/lib-test-run" />
+	
 	<!--======================================================-->
 	<!-- Usage                                                -->
 	<!--======================================================-->
@@ -41,14 +52,26 @@
 	<!--======================================================-->
 	<!-- Build                                                -->
 	<!--======================================================-->
-	<target name="build" depends="-init, -copy-resources-code, -compile-code" description="--> Build (without jaring)">
+	<target name="build" depends="-init, -copy-resources-code, -compile-code" 
+		    description="--> Build (without jaring)">
+	</target>
+	<!--======================================================-->
+	<!-- Build                                                -->
+	<!--======================================================-->
+	<target name="buildtest" depends="-init, -copy-resources-test, -compile-test"
+		    description="--> Build test code (without jaring)">
 	</target>
 	
 	<!--======================================================-->
 	<!-- Test                                                 -->
 	<!--======================================================-->
-	<target name="test" depends="-init, -copy-resources-test, -compile-code, -compile-test" 
+	<target name="test" depends="-init, buildtest" 
 		    description="--> Execute all tests">
+	</target>
+	<!--======================================================-->
+	<!-- BuildAll                                                -->
+	<!--======================================================-->
+	<target name="buildall" depends="build, buildtest" description="--> Build (without jaring)">
 	</target>
 
 	<!--======================================================-->
