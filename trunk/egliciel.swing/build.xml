@@ -16,8 +16,8 @@
 	<property name="classes-test.dir" location="${target.dir}/classes-test" /> 
 
 	<property name="dist.dir" location="${target.dir}/dist" /> 
-	<property name="javadoc.dir" location="${dist.dir}/javadoc" /> 
 	<property name="docs.dir" location="${dist.dir}/docs" /> 
+	<property name="javadoc.dir" location="${docs.dir}/api" /> 
 
 	<!-- reference to source parts-->
 	<property name="src.dir" location="${basedir}/src/main/java" /> 
@@ -26,15 +26,13 @@
 	<property name="resources-test.dir" location="${basedir}/src/test/resources" /> 
 	
 	<!-- reference to jars used for code compilation -->
-	<!-- directory containing jar used for compiling code-->
+	<!-- directory containing jar used for compiling/running code-->
 	<property name="lib.compile.code.dir" location="${basedir}/lib" />
-	<!-- directory containing jar used for compiling unit tests -->
+	<!-- directory containing jar used for compiling/running unit tests -->
 	<property name="lib.compile.test.dir" location="${basedir}/lib-test" />
 
-	<!-- directory containing jar used for running/debugging the application -->
-	<property name="lib.run.code.dir" location="${basedir}/lib-run" />
-	<!-- directory containing jar used for running/debugging the unit tests -->
-	<property name="lib.run.test.dir" location="${basedir}/lib-test-run" />
+	<!-- compilation options -->
+	<property name="build.debug" location="true" />
 	
 	<!--======================================================-->
 	<!-- Usage                                                -->
@@ -106,7 +104,36 @@
 		<include name="**/*.jfrm"/> <!-- jeta form designer files -->
 	</patternset>
 	
-	<!-- filesets     -->	
+	<!-- filesets  resources files in code   -->
+	<fileset id="resources-code" dir="${resources.dir}">
+		<patternset refid="resources-files"></patternset>
+	</fileset>
+	<!-- filesets  resources files in tests   -->
+	<fileset id="resources-test" dir="${resources-test.dir}">
+		<patternset refid="resources-files"></patternset>
+	</fileset>
+	
+	
+	<!-- filesets  list of jar to use in compile classpath for code   -->
+	<fileset id="lib.compile.code.fileset" dir="${lib.compile.code.dir}">
+		<include name="*.jar"/>
+	</fileset>
+
+	<!-- filesets  list of jar to use in compile classpath for test   -->
+	<fileset id="lib.compile.test.fileset" dir="${lib.compile.test.dir}">
+		<include name="*.jar"/>
+	</fileset>
+
+	<!-- classpath for compiling code   -->
+	<path id="compile.code.classpath">
+		<fileset refid="lib.compile.code.fileset" />
+	</path>
+	
+	<!-- classpath for compiling test   -->
+	<path id="compile.test.classpath">
+		<path refid="compile.code.classpath"/>
+		<fileset refid="lib.compile.test.fileset" />
+	</path>
 	
 	
 	<!-- Internal targets not to be run from command line     -->	
@@ -164,7 +191,12 @@
           target: -compile-code                      
          - - - - - - - - - - - - - - - - - -->
     <target name="-compile-code" depends="-generate-code">
-            
+		<javac destdir ="${classes.dir}"
+			   srcdir  ="${src.dir}"
+			   debug   ="${build.debug}"
+		>
+			<classpath refid="compile.code.classpath"></classpath>
+    	</javac>
     </target>
 
 	
@@ -172,6 +204,12 @@
           target: -compile-test                      
          - - - - - - - - - - - - - - - - - -->
     <target name="-compile-test" depends="-generate-test,-compile-code">
+		<javac destdir ="${classes.dir}"
+			   srcdir  ="${src.dir}"
+			   debug   ="${build.debug}"
+		>
+			<classpath refid="compile.test.classpath"></classpath>
+    	</javac>
             
     </target>
 
@@ -180,7 +218,9 @@
           target: -copy-resources-code                      
          - - - - - - - - - - - - - - - - - -->
     <target name="-copy-resources-code">
-            
+    	<copy todir="${classes.dir}">
+    		<fileset refid="resources-code"></fileset>
+    	</copy>
     </target>
 	
 	
@@ -188,7 +228,9 @@
           target: -copy-resources-test                      
          - - - - - - - - - - - - - - - - - -->
     <target name="-copy-resources-test">
-            
+    	<copy todir="${classes-test.dir}">
+    		<fileset refid="resources-test"></fileset>
+    	</copy>            
     </target>
 
 
