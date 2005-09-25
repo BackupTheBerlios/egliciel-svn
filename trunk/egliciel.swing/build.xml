@@ -15,6 +15,8 @@
 	<property name="classes.dir" location="${target.dir}/classes" /> 
 	<property name="classes-test.dir" location="${target.dir}/classes-test" /> 
 
+	<property name="database-schema.dir" location="${target.dir}/database-schema"/>
+	
 	<property name="dist.dir" location="${target.dir}/dist" /> 
 	<property name="docs.dir" location="${dist.dir}/docs" /> 
 	<property name="javadoc.dir" location="${docs.dir}/api" /> 
@@ -67,7 +69,7 @@
 		    description="--> Execute all tests">
 	</target>
 	<!--======================================================-->
-	<!-- BuildAll                                                -->
+	<!-- buildall                                             -->
 	<!--======================================================-->
 	<target name="buildall" depends="build, buildtest" description="--> Build (without jaring)">
 	</target>
@@ -96,6 +98,11 @@
 	<target name="javadoc" description="--> Build javadoc">
 	</target>
 
+	<!--======================================================-->
+	<!-- create-schem                                         -->
+	<!--======================================================-->
+	<target name="create-schema" description="--> Create database schema script from mapping files">
+	</target>
 
 	<!-- Patternsets declarations     -->	
 	<patternset id="resources-files">

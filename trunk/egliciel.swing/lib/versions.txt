@@ -1,0 +1,14 @@
+Here is the list of jar needed ( with theirs version number).
+
+transitive dependencies are also noted.
+
+- hdsqldb
+
+- hibernate
+
+- spring
+
+- spring-rich
+
+- flexdoc
+
