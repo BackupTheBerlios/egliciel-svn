@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configs>
+		<config>src/main/resources/malitech/egliciel/context-global-commands.xml</config>
+		<config>src/main/resources/malitech/egliciel/context-splash.xml</config>
+		<config>src/main/resources/malitech/egliciel/context-main.xml</config>
+	</configs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

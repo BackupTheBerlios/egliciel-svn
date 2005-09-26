@@ -3,5 +3,11 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry output="target/test-classes" kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry sourcepath="D:/_Dev/spring-rcp/spring-richclient/dist/spring-richclient-src.zip" kind="lib" path="lib/spring-richclient.jar"/>
+	<classpathentry kind="lib" path="lib/spring.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/log4.jar"/>
+	<classpathentry kind="lib" path="lib/spring-binding.jar"/>
+	<classpathentry kind="lib" path="lib/looks.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

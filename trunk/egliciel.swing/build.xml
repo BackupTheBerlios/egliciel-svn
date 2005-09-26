@@ -34,7 +34,7 @@
 	<property name="lib.compile.test.dir" location="${basedir}/lib-test" />
 
 	<!-- compilation options -->
-	<property name="build.debug" location="true" />
+	<property name="build.debug" value="on" /> 
 	
 	<!--======================================================-->
 	<!-- Usage                                                -->
@@ -109,6 +109,9 @@
 		<include name="**/*.xml"/>
 		<include name="**/*.properties"/>
 		<include name="**/*.jfrm"/> <!-- jeta form designer files -->
+		<include name="**/*.gif"/>
+		<include name="**/*.png"/>
+		<include name="**/*.jpg"/>
 	</patternset>
 	
 	<!-- filesets  resources files in code   -->
@@ -121,9 +124,10 @@
 	</fileset>
 	
 	
-	<!-- filesets  list of jar to use in compile classpath for code   -->
+	<!-- filesets  list of jar to use in compile classpath for code
+	               all of these should also be present in the .classpath file.   -->
 	<fileset id="lib.compile.code.fileset" dir="${lib.compile.code.dir}">
-		<include name="*.jar"/>
+		<include name="**/*.jar"/>
 	</fileset>
 
 	<!-- filesets  list of jar to use in compile classpath for test   -->

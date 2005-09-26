@@ -1,5 +1,14 @@
 Here is the list of jar needed ( with theirs version number).
 
+
+
+common-logging 
+log4j (v1.2.8)
+looks (v1.3.1)
+spring.jar: 1.2.3
+spring-binding.jar: snapshot 22 july 2005
+spirng-richclient.jar ( snapshot 25 sep 2005)
+
 transitive dependencies are also noted.
 
 - hdsqldb

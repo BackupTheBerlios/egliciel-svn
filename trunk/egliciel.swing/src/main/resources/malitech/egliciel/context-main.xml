@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <bean id="application"
+    class="org.springframework.richclient.application.Application">
+    <constructor-arg index="0">
+      <ref bean="simplestAdvisor"/>
+    </constructor-arg>
+  </bean>
+
+  <bean id="simplestAdvisor" class="malitech.egliciel.ApplicationAdvisor">
+    <property name="windowCommandBarDefinitions">
+      <value>/malitech/egliciel/context-global-commands.xml</value>
+    </property>
+    <property name="startingPageId">
+      <value>mainView</value>
+    </property>
+  </bean>
+
+  <bean id="mainView"
+    class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+    <property name="viewClass">
+      <value>malitech.egliciel.ui.MainView</value>
+    </property>
+    <property name="title">
+      <value>Egliciel's default view(title)</value>
+    </property>
+  </bean>
+
+
+  <bean id="imageResourcesFactory"
+    class="org.springframework.context.support.ResourceMapFactoryBean">
+    <property name="locations">
+      <list>
+        <value>classpath:/malitech/egliciel/config/images.properties</value>
+      </list>
+    </property>
+    <property name="resourceBasePath">
+      <value>images/</value>
+    </property>
+  </bean>
+
+  <bean id="imageSource"
+    class="org.springframework.richclient.image.DefaultImageSource">
+    <constructor-arg index="0">
+      <ref bean="imageResourcesFactory"/>
+    </constructor-arg>
+  </bean>
+
+  <bean id="messageSource"
+    class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+      <list>
+        <value>malitech.egliciel.config.messages</value>
+      </list>
+    </property>
+  </bean>
+</beans>
