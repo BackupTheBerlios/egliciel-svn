@@ -11,5 +11,7 @@
 	<classpathentry kind="lib" path="lib/looks.jar"/>
 	<classpathentry kind="lib" path="lib/spring-richclient-resources.jar"/>
 	<classpathentry kind="lib" path="lib/spring-richclient-sandbox.jar"/>
+	<classpathentry kind="lib" path="lib/flexdock-0.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/forms.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

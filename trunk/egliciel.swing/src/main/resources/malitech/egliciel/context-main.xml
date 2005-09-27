@@ -57,4 +57,22 @@
       </list>
     </property>
   </bean>
-</beans>
+<bean id="initialPageLayout" class="org.springframework.richclient.application.support.flexdock.FlexPageDescriptor">
+  <property name="id">
+    <value>initialPageLayout</value>
+  </property>
+  <property name="configurationManager">
+    <ref bean="flexdockConfigurationManager"/>
+  </property>
+</bean>
+   
+<bean id="flexdockConfigurationManager" class="org.springframework.richclient.application.support.flexdock.FlexConfigurationManager">
+  <property name="persistentFileName">
+    <value>malitech.egliciel.layoutConfig</value>
+  </property>
+  <property name="defaultLayoutLocation">
+   <value>classpath:malitech/egliciel/default.layoutConfig.xml</value>
+  </property>
+</bean>   
+
+<bean id="applicationWindowPrototype" singleton="false" class="org.springframework.richclient.application.support.flexdock.FlexApplicationWindow"/> </beans>

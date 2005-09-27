@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DockingConfiguration>
+  <DockingPort id="mainDockingPort">
+    <SplitPane vertical="false" divider="201" >
+      <DockingPort id="null">
+        <Dockable id="ownerManagerView"/>
+      </DockingPort>
+      <DockingPort id="null">
+        <Dockable id="vetManagerView"/>
+      </DockingPort>
+    </SplitPane>
+  </DockingPort>
+</DockingConfiguration> 
