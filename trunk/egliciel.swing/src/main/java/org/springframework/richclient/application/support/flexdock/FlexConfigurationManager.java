@@ -33,6 +33,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
 /**
  * @author Claudio Romano - cro
@@ -49,6 +51,8 @@ public class FlexConfigurationManager {
     private Resource configResource;
 
     private List viewList;
+
+    private static final Log logger = LogFactory.getLog(FlexConfigurationManager.class);
 
     public FlexConfigurationManager() {
     }
@@ -150,7 +154,7 @@ public class FlexConfigurationManager {
     private class ViewConfiguration extends DefaultHandler {
         StringBuffer contentBuffer;
         List list;
-
+        
         private List parse(InputSource inputSource) {
             list = new ArrayList();
             contentBuffer = new StringBuffer();
@@ -172,6 +176,9 @@ public class FlexConfigurationManager {
         }
         
         public void startElement (String uri, String lname, String qname, Attributes attributes) {
+            logger.info("contentBuffer = "+ contentBuffer.toString());
+            logger.info("lname = "+ lname);
+            logger.info("qname = "+ qname);
             contentBuffer.setLength (0);
             if (qname.equals ("Dockable")) {
                 list.add(attributes.getValue("id"));

@@ -6,16 +6,16 @@
   <bean id="application"
     class="org.springframework.richclient.application.Application">
     <constructor-arg index="0">
-      <ref bean="simplestAdvisor"/>
+      <ref bean="EglicielAdvisor"/>
     </constructor-arg>
   </bean>
 
-  <bean id="simplestAdvisor" class="malitech.egliciel.ApplicationAdvisor">
+  <bean id="EglicielAdvisor" class="malitech.egliciel.ApplicationAdvisor">
     <property name="windowCommandBarDefinitions">
       <value>/malitech/egliciel/context-global-commands.xml</value>
     </property>
     <property name="startingPageId">
-      <value>mainView</value>
+      <value>initialPageLayout</value>
     </property>
   </bean>
 
@@ -26,6 +26,15 @@
     </property>
     <property name="title">
       <value>Egliciel's default view(title)</value>
+    </property>
+  </bean>
+  <bean id="mainNavigatorView"
+    class="org.springframework.richclient.application.support.DefaultViewDescriptor">
+    <property name="viewClass">
+      <value>malitech.egliciel.ui.MainNavigatorView</value>
+    </property>
+    <property name="title">
+      <value>Egliciel's navigator</value>
     </property>
   </bean>
 

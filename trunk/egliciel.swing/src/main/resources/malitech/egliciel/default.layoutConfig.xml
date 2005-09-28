@@ -3,11 +3,11 @@
   <DockingPort id="mainDockingPort">
     <SplitPane vertical="false" divider="201" >
       <DockingPort id="null">
-        <Dockable id="ownerManagerView"/>
+        <Dockable id="mainNavigatorView"/>
       </DockingPort>
       <DockingPort id="null">
-        <Dockable id="vetManagerView"/>
+        <Dockable id="mainView"/>
       </DockingPort>
     </SplitPane>
   </DockingPort>
-</DockingConfiguration> 
+</DockingConfiguration>  
