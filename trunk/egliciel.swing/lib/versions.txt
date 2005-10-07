@@ -2,22 +2,32 @@ Here is the list of jar needed ( with theirs version number).
 
 
 
-common-logging 
-log4j (v1.2.8)
-looks (v1.3.1)
+commons-logging-1.0.4 
+commons-collections-1.0.4
+
+flexdock-0.3.1
+forms-1.0.5
+hibernate3 ( 3.1beta3)
+  asm
+  asm-attrs
+  cglib-2.1.2
+  dom4j-1.6.1
+  jaxen-1.1-beta-7
+  jdbc2_0-stdext
+  jta
+  xml-apis
+    
+hsqldb-1.8.0.2
+
+log4j-1.2.11
+looks-1.3.2
+  
+
 spring.jar: 1.2.3
-spring-binding.jar: snapshot 22 july 2005
-spirng-richclient.jar ( snapshot 25 sep 2005)
+spring-binding.jar            snapshot 22 july 2005
+spring-richclient.jar         snapshot  07 oct 2005
+spring-richclient-sandbox.jar snapshot  07 oct 2005
 
-transitive dependencies are also noted.
 
-- hdsqldb
 
-- hibernate
-
-- spring
-
-- spring-rich
-
-- flexdoc
 
