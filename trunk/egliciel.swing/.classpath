@@ -5,13 +5,13 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry sourcepath="D:/_Dev/spring-rcp/spring-richclient/dist/spring-richclient-src.zip" kind="lib" path="lib/spring-richclient.jar"/>
 	<classpathentry kind="lib" path="lib/spring.jar"/>
-	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="lib/log4.jar"/>
 	<classpathentry kind="lib" path="lib/spring-binding.jar"/>
-	<classpathentry kind="lib" path="lib/looks.jar"/>
 	<classpathentry kind="lib" path="lib/spring-richclient-resources.jar"/>
 	<classpathentry kind="lib" path="lib/spring-richclient-sandbox.jar"/>
 	<classpathentry kind="lib" path="lib/flexdock-0.3.4.jar"/>
-	<classpathentry kind="lib" path="lib/forms.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.0.5.jar"/>
+	<classpathentry kind="lib" path="lib/looks-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.11.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
