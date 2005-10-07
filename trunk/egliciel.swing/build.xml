@@ -6,6 +6,8 @@
 	<!--======================================================-->
 	<property file="build.properties"/>
 	<property file="project.properties"/>
+	<property file="hibernate.properties"/>
+	<property environment="env"/>
 	
 	<!--======================================================-->
 	<!-- Properties definition                                -->
@@ -14,6 +16,7 @@
 	<property name="target.dir" location="${basedir}/target" /> 
 	<property name="classes.dir" location="${target.dir}/classes" /> 
 	<property name="classes-test.dir" location="${target.dir}/classes-test" /> 
+    <property name="generated-sources.dir" location="${target.dir}/generated-sources"/>
 
 	<property name="database-schema.dir" location="${target.dir}/database-schema"/>
 	
@@ -35,6 +38,11 @@
 
 	<!-- compilation options -->
 	<property name="build.debug" value="on" /> 
+	
+	
+	<!-- reference to tools used during the build process -->
+	<property name="xdoclet.version" value="1.2.3"/>
+	<property name="xdoclet.lib.dir" location="${env.TOOLS_HOME}/xdoclet-${xdoclet.version}"/>
 	
 	<!--======================================================-->
 	<!-- Usage                                                -->
@@ -135,6 +143,11 @@
 		<include name="*.jar"/>
 	</fileset>
 
+	<!-- fileset  list of jar to run xdoclet   -->
+	<fileset id="xdoclet.lib.fileset" dir="${xdoclet.lib.dir}/lib">
+		<include name="*.jar"/>
+	</fileset>
+
 	<!-- classpath for compiling code   -->
 	<path id="compile.code.classpath">
 		<fileset refid="lib.compile.code.fileset" />
@@ -146,6 +159,10 @@
 		<fileset refid="lib.compile.test.fileset" />
 	</path>
 	
+	<!-- classpath for running xdoclet   -->
+	<path id="xdoclet.classpath">
+		<fileset refid="xdoclet.lib.fileset" />
+	</path>
 	
 	<!-- Internal targets not to be run from command line     -->	
 	
@@ -185,7 +202,7 @@
           target: -generate-code                      
                   run automatic code generation if any
          - - - - - - - - - - - - - - - - - -->
-    <target name="-generate-code" depends="">
+    <target name="-generate-code" depends="-generate-hbm">
             
     </target>
 
@@ -244,6 +261,30 @@
     	</copy>            
     </target>
 
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: -generate-hbm                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="-generate-hbm">
+    	<taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask"
+    	         classpathref="xdoclet.classpath">
+    	</taskdef>
+    	<hibernatedoclet destdir="${classes.dir}"
+    		 			 verbose="true"	>
+    		<fileset dir="${src.dir}">
+    			<include name="model/*.java"/>
+    		</fileset>
+    		<hibernate version="3.0"/>
+    		<hibernatecfg dialect="${hibernate.dialect}"
+    					  jdbcUrl="${hibernate.connection.url}"
+    					  driver="${hibernate.connection.driver_class}"
+    			          userName="${hibernate.connection.username}"
+    		              password="${hibernate.connection.password}"
+						  showSql="true"
+    			          version="3.0"
+    			>
+    		</hibernatecfg>
+    	</hibernatedoclet>
+    </target>
 
 
 
