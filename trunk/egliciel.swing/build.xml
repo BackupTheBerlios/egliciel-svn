@@ -186,6 +186,7 @@
 		<mkdir dir="${dist.dir}"/>
 		<mkdir dir="${javadoc.dir}"/>
 		<mkdir dir="${docs.dir}"/>
+		<mkdir dir="${generated-sources.dir}"/>		
 	</target>
 
 	
