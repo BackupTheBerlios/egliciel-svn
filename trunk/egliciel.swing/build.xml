@@ -134,13 +134,15 @@
 	
 	<!-- filesets  list of jar to use in compile classpath for code
 	               all of these should also be present in the .classpath file.   -->
-	<fileset id="lib.compile.code.fileset" dir="${lib.compile.code.dir}">
-		<include name="commons-logging-1.0.4.jar"/>
-		<include name="spring-richclient.jar"/>
-		<include name="flexdock-0.3.4.jar"/>
-		<include name="spring.jar"/>
-		<include name="forms-1.0.5.jar"/>
-		<include name="looks-1.3.2.jar"/>
+		
+	<fileset id="lib.compile.code.fileset" dir=".">
+<!--		<fileset id="lib.compile.code.fileset" dir="${lib.compile.code.dir}">-->
+		<include name="**/commons-logging-1.0.4.jar"/>
+		<include name="**/spring-richclient.jar"/>
+		<include name="**/flexdock-0.3.4.jar"/>
+		<include name="**/spring.jar"/>
+		<include name="**/forms-1.0.5.jar"/>
+		<include name="**/looks-1.3.2.jar"/>
 	</fileset>
 
 	<!-- filesets  list of jar to use in compile classpath for test   -->
@@ -292,7 +294,22 @@
     	</hibernatedoclet>
     </target>
 
+	<target name="test.classpath">
+		<pathconvert property="eclipse.entries" refid="lib.compile.code.fileset"
+					 pathsep="&quot;/&gt;&#10;    &lt;classpathentry kind=&quot;lib&quot; path=&quot;"	     
+		/>
+		<echo file="test.classpath"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+			<classpath>
+				<classpathentry kind="src" path="src/main/java"/>
+				<classpathentry kind="src" path="target/generated-sources"/>
+				<classpathentry output="target/classes-test" kind="src" path="src/test/java"/>
+				<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+				<classpathentry kind="lib" path="${eclipse.entries}"/>
+				<classpathentry kind="output" path="target/classes"/>
+			</classpath>
 
+		]]></echo>
+	</target>
 
 </project>
 
