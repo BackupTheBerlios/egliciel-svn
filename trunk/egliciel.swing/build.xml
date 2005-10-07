@@ -135,7 +135,12 @@
 	<!-- filesets  list of jar to use in compile classpath for code
 	               all of these should also be present in the .classpath file.   -->
 	<fileset id="lib.compile.code.fileset" dir="${lib.compile.code.dir}">
-		<include name="**/*.jar"/>
+		<include name="commons-logging-1.0.4.jar"/>
+		<include name="spring-richclient.jar"/>
+		<include name="flexdock-0.3.4.jar"/>
+		<include name="spring.jar"/>
+		<include name="forms-1.0.5.jar"/>
+		<include name="looks-1.3.2.jar"/>
 	</fileset>
 
 	<!-- filesets  list of jar to use in compile classpath for test   -->
