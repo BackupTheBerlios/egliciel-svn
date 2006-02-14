@@ -6,4 +6,7 @@
         module="prono"
         status="integration">
 	</info>
+    <dependencies>
+        <dependency org="jgoodies" name="binding" rev="1.1"/>
+    </dependencies>
 </ivy-module>

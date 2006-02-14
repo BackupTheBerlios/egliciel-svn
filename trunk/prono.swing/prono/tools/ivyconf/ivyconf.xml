@@ -1,7 +1,15 @@
 <ivyconf>
 	<conf defaultResolver="default"/>
 	<include url="${ivy.default.conf.dir}/ivyconf-public.xml"/>
-	<include url="${ivy.default.conf.dir}/ivyconf-shared.xml"/>
+	<property name="ivy.shared.default.root"             value="/opt/prono/ivyrepshared" override="false"/>
+	<property name="ivy.shared.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]" override="false"/>
+	<property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]" override="false"/>
+	<resolvers>
+		<filesystem name="shared">
+			<ivy pattern="${ivy.shared.default.root}/${ivy.shared.default.ivy.pattern}" />
+			<artifact pattern="${ivy.shared.default.root}/${ivy.shared.default.artifact.pattern}" />
+		</filesystem>
+	</resolvers>
 	<include url="${ivy.default.conf.dir}/ivyconf-local.xml"/>
 	<include url="${ivy.default.conf.dir}/ivyconf-main-chain.xml"/>
 	<include url="${ivy.default.conf.dir}/ivyconf-default-chain.xml"/>
