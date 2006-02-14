@@ -1,7 +1,4 @@
 <project name="prono" default="usage" basedir="." xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
-	<!-- !! for correct usage, ivy jar must be present in the ant/lib directory
-	     in case of 
-	    -->
 
 	<!--======================================================-->
 	<!-- Property files loading                               -->
@@ -17,6 +14,7 @@
 	<!--======================================================-->
 	<!-- location of tools used during the builds-->
 	<property name="tools.dir" location="${basedir}/tools" />
+
 	<property name="ivyconf.dir" location="${tools.dir}/ivyconf" />
 
 	<!-- where building occurs-->
@@ -34,9 +32,8 @@
 	<property name="docs.dir" location="${dist.dir}/docs" />
 	<property name="javadoc.dir" location="${docs.dir}/api" />
 
-	<!-- use the following line when ivy is properly configured -->
+	<!-- directory where ivy copies referenced jar -->
     <property name="computed-lib" location="${build.dir}/lib" />
-	<!--	<property name="computed-lib" location="${basedir}/lib" />-->
 
 	<!-- reference to source parts--> 
 	<property name="src.dir" location="${basedir}/src/main/java" />
@@ -44,11 +41,7 @@
 	<property name="resources.dir" location="${basedir}/src/main/resources" />
 	<property name="resources-test.dir" location="${basedir}/src/test/resources" />
 	<property name="codegen-templates" location="${basedir}/src/main/codegen-templates" />
-	<!-- reference to jars used for code compilation -->
-	<!-- directory containing jar used for compiling/running code-->
-	<property name="lib.compile.code.dir" location="${basedir}/lib" />
-	<!-- directory containing jar used for compiling/running unit tests -->
-	<property name="lib.compile.test.dir" location="${basedir}/lib-test" />
+
 
 	<!-- compilation options -->
 	<property name="build.debug" value="on" />
@@ -93,7 +86,7 @@
 	<!--======================================================-->
 	<!-- Clean                                                -->
 	<!--======================================================-->
-	<target name="clean" depends="-init, -clean-target" description="--> Clean build output">
+	<target name="clean" depends="-init, -clean-build" description="--> Clean build output">
 	</target>
 
 	<!--======================================================-->
@@ -175,23 +168,23 @@
                        all of these should also be present in the .classpath file.   -->
 
 	<fileset id="lib.compile.code.fileset" dir="${computed-lib}">
-		<!-- TODO put list of named jar-->
+		<!-- List of jar managed by ivy -->
 		<include name="*.jar" />
 	</fileset>
 
 	<fileset id="lib.run.code.fileset" dir="${computed-lib}">
-		<!-- TODO put list of named jar-->
+		<!-- List of jar managed by ivy -->
 		<include name="*.jar" />
 	</fileset>
 
 	<!-- filesets  list of jar to use in compile classpath for test   -->
 	<fileset id="lib.compile.test.fileset" dir="${computed-lib}">
-		<!-- TODO put list of named jar-->
+		<!-- List of jar managed by ivy -->
 		<include name="*.jar" />
 	</fileset>
 
 	<fileset id="lib.run.test.fileset" dir="${computed-lib}">
-		<!-- TODO put list of named jar-->
+		<!-- List of jar managed by ivy -->
 		<include name="*.jar" />
 	</fileset>
 
@@ -207,23 +200,19 @@
 		<fileset refid="lib.compile.test.fileset" />
 	</path>
 
-
 	<!-- Internal targets not to be run from command line     -->
-
-
-
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -init
          - - - - - - - - - - - - - - - - - -->
-	<target name="-init" depends="-init-target">
+	<target name="-init" depends="-init-build">
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -init-target
           create target subfolders
          - - - - - - - - - - - - - - - - - -->
-	<target name="-init-target">
+	<target name="-init-build">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${classes.dir}" />
 		<mkdir dir="${classes-test.dir}" />
@@ -241,7 +230,7 @@
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -clean-target                      
          - - - - - - - - - - - - - - - - - -->
-	<target name="-clean-target">
+	<target name="-clean-build">
 		<delete dir="${build.dir}" />
 	</target>
 
@@ -317,9 +306,10 @@
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -resolve
-         - - - - - - - - - - - - - - - - - -->
+         - - - - - - - - - - - - - - - - - --> 
 	<target name="-resolve">
         <ivy:configure file="${ivyconf.dir}/ivyconf.xml" />
+		<ivy:resolve/>
         <ivy:retrieve />
 	</target>
 	<!-- - - - - - - - - - - - - - - - - - 
