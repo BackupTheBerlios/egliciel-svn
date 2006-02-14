@@ -1,378 +1,331 @@
-<project name="prono"
-         default="usage"
-         basedir="."
-         xmlns:ivy="antlib:fr.jayasoft.ivy.ant"
->
+<project name="prono" default="usage" basedir="." xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
+	<!-- !! for correct usage, ivy jar must be present in the ant/lib directory    -->
 
-    <!--======================================================-->
-    <!-- Property files loading                               -->
-    <!--======================================================-->
-    <property file="build.properties" />
-    <property file="project.properties" />
-    <property file="hibernate.properties" />
-    <property environment="env" />
+	<!--======================================================-->
+	<!-- Property files loading                               -->
+	<!--======================================================-->
+	<property file="build.properties" />
+	<property file="project.properties" />
+	<property file="hibernate.properties" />
+	<property environment="env" /> 
 
+ 
+	<!--======================================================-->
+	<!-- Properties definition                                -->
+	<!--======================================================-->
+	<!-- location of tools used during the builds-->
+	<property name="tools.dir" location="${basedir}/tools" />
+	<property name="ivyconf.dir" location="${tools.dir}/ivyconf" />
 
-    <!--======================================================-->
-    <!-- Properties definition                                -->
-    <!--======================================================-->
-    <!-- location of tools used during the builds-->
-    <property name="tools.dir" location="${basedir}/tools" />
-    <property name="ivyconf.dir" location="${tools.dir}/ivyconf" />
-
-    <!-- where building occurs-->
-    <property name="build.dir" location="${basedir}/build" />
-    <property name="classes.dir" location="${build.dir}/classes" />
-    <property name="classes-test.dir" location="${build.dir}/classes-test" />
-    <property name="generated-sources.dir"
-              location="${build.dir}/generated-sources"
-    />
-	<property name="database.dir" location="${build.dir}/database"/>
-    <property name="database-schema.dir"
-              location="${database.dir}/schema"
-    />
+	<!-- where building occurs-->
+	<property name="build.dir" location="${basedir}/build" />
+	<property name="classes.dir" location="${build.dir}/classes" />
+	<property name="classes-test.dir" location="${build.dir}/classes-test" />
+	<property name="generated-sources.dir" location="${build.dir}/generated-sources" />
+	<property name="database.dir" location="${build.dir}/database" />
+	<property name="database-schema.dir" location="${database.dir}/schema" />
 	<!-- location of hsqldb database files -->
-	<property name="database.hsqldb.dir" location="${database.dir}/hsqldbdir"/>
-	
-	
-    <property name="dist.dir" location="${build.dir}/dist" />
-    <property name="docs.dir" location="${dist.dir}/docs" />
-    <property name="javadoc.dir" location="${docs.dir}/api" />
+	<property name="database.hsqldb.dir" location="${database.dir}/hsqldbdir" />
+
+
+	<property name="dist.dir" location="${build.dir}/dist" />
+	<property name="docs.dir" location="${dist.dir}/docs" />
+	<property name="javadoc.dir" location="${docs.dir}/api" />
 
 	<!-- use the following line when ivy is properly configured -->
-    <!--    <property name="computed-lib" location="${build.dir}/lib" />-->
-    <property name="computed-lib" location="${basedir}/lib" />
+    <property name="computed-lib" location="${build.dir}/lib" />
+<!--	<property name="computed-lib" location="${basedir}/lib" />-->
 
-    <!-- reference to source parts-->
-    <property name="src.dir" location="${basedir}/src/main/java" />
-    <property name="src-test.dir" location="${basedir}/src/test/java" />
-    <property name="resources.dir" location="${basedir}/src/main/resources" />
-    <property name="resources-test.dir"
-              location="${basedir}/src/test/resources"
-    />
-    <property name="codegen-templates"
-              location="${basedir}/src/main/codegen-templates"
-    />
-    <!-- reference to jars used for code compilation -->
-    <!-- directory containing jar used for compiling/running code-->
-    <property name="lib.compile.code.dir" location="${basedir}/lib" />
-    <!-- directory containing jar used for compiling/running unit tests -->
-    <property name="lib.compile.test.dir" location="${basedir}/lib-test" />
+	<!-- reference to source parts-->
+	<property name="src.dir" location="${basedir}/src/main/java" />
+	<property name="src-test.dir" location="${basedir}/src/test/java" />
+	<property name="resources.dir" location="${basedir}/src/main/resources" />
+	<property name="resources-test.dir" location="${basedir}/src/test/resources" />
+	<property name="codegen-templates" location="${basedir}/src/main/codegen-templates" />
+	<!-- reference to jars used for code compilation -->
+	<!-- directory containing jar used for compiling/running code-->
+	<property name="lib.compile.code.dir" location="${basedir}/lib" />
+	<!-- directory containing jar used for compiling/running unit tests -->
+	<property name="lib.compile.test.dir" location="${basedir}/lib-test" />
 
-    <!-- compilation options -->
-    <property name="build.debug" value="on" />
+	<!-- compilation options -->
+	<property name="build.debug" value="on" />
 
-    <!--======================================================-->
-    <!-- References to tools used during build                -->
-    <!-- as much as possible, tools release with eclipse are  -->
-    <!-- used												  -->
-    <!--======================================================-->
-    <!-- Path to ivy.jar -->
-	
-    <!-- not used for the moment
-    <property name="ivy.jar" value="ivy-1.3-RC1.jar" />
-	-->	
-    <!-- Path to hibernate-tools.jar -->
-    <property name="hibernate-tools.dir"
-              location="${env.ECLIPSE_HOME}/plugins/org.hibernate.eclipse_3.1.0.beta4/lib/tools"
-    />
-    <property name="junit.dir"
-    		location="${env.ECLIPSE_HOME}/plugins/org.junit_3.8.1"/>
+	<!--======================================================-->
+	<!-- References to tools used during build                -->
+	<!-- as much as possible, tools release with eclipse are  -->
+	<!-- used												  -->
+	<!--======================================================-->
 
-    <!-- tasks definitions -->
-    <path id="ivy.lib.path">
-        <fileset dir="${tools.dir}" includes="${ivy.jar}" />
-    </path>
+	<!-- Path to hibernate-tools.jar -->
+	<property name="hibernate-tools.dir" location="${env.ECLIPSE_HOME}/plugins/org.hibernate.eclipse_3.1.0.beta4/lib/tools" />
 
-    <!-- not used for the moment
-    <taskdef resource="fr/jayasoft/ivy/ant/antlib.xml" uri="antlib:fr.jayasoft.ivy.ant" classpathref="ivy.lib.path" />
-	-->
-    <path id="hibernate-tools.path">
-        <fileset dir="${hibernate-tools.dir}" includes="*.jar" />
-    </path>
-	
-    <taskdef name="hibernatetool"
-             classname="org.hibernate.tool.ant.HibernateToolTask"
-             classpathref="hibernate-tools.path"
-    />
+	<property name="junit.dir" location="${env.ECLIPSE_HOME}/plugins/org.junit_3.8.1" />
 
-    <!-- ivy properties -->
-    <property name="ivy.cache.dir" value="c:/Zava/Ivy-Cache" />
-    <property name="ivy.lib.dir" value="${computed-lib}" />
-    <property name="local-repository.dir" value="c:/Zava/IvyRepository" />
+	<!-- tasks definitions -->
+	<path id="ivy.lib.path">
+		<fileset dir="${tools.dir}" includes="${ivy.jar}" />
+	</path>
 
 
-    <!--======================================================-->
-    <!-- Usage                                                -->
-    <!--======================================================-->
-    <target name="usage" description="--> Display usage">
-    </target>
+	<path id="hibernate-tools.path">
+		<fileset dir="${hibernate-tools.dir}" includes="*.jar" />
+	</path>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="hibernate-tools.path" />
+
+	<!-- ivy properties -->
+	<property name="ivy.lib.dir" value="${computed-lib}" />
 
 
-    <!--======================================================-->
-    <!-- Clean                                                -->
-    <!--======================================================-->
-    <target name="clean"
-            depends="-init, -clean-target"
-            description="--> Clean build output"
-    >
-    </target>
-
-    <!--======================================================-->
-    <!-- Build                                                -->
-    <!--======================================================-->
-    <target name="build"
-            depends="-init,-resolve, -copy-resources-code, -compile-code"
-            description="--> Build (without jaring)"
-    >
-    </target>
-    <!--======================================================-->
-    <!-- Build                                                -->
-    <!--======================================================-->
-    <target name="buildtest"
-            depends="-init, -copy-resources-test, -compile-test"
-            description="--> Build test code (without jaring)"
-    >
-    </target>
-
-    <!--======================================================-->
-    <!-- Test                                                 -->
-    <!--======================================================-->
-    <target name="test"
-            depends="-init, buildtest"
-            description="--> Execute all tests"
-    >
-    </target>
-    <!--======================================================-->
-    <!-- buildall                                             -->
-    <!--======================================================-->
-    <target name="buildall"
-            depends="build, buildtest"
-            description="--> Build (without jaring)"
-    >
-    </target>
-
-    <!--======================================================-->
-    <!-- Run                                                  -->
-    <!--======================================================-->
-    <target name="run" description="--> Run compiled application">
-    </target>
-
-    <!--======================================================-->
-    <!-- Jar                                                  -->
-    <!--======================================================-->
-    <target name="jar" description="--> Package jar with application">
-    </target>
-
-    <!--======================================================-->
-    <!-- dist                                                 -->
-    <!--======================================================-->
-    <target name="dist" description="--> Build distribution">
-    </target>
-
-    <!--======================================================-->
-    <!-- javadoc                                              -->
-    <!--======================================================-->
-    <target name="javadoc" description="--> Build javadoc">
-    </target>
-
-    <!--======================================================-->
-    <!-- create-schema                                        -->
-    <!--======================================================-->
-    <target name="generate-schema"
-            description="--> Create database schema script from mapping files"
-    >
-    </target>
-
-    <!-- Patternsets declarations     -->
-    <patternset id="resources-files">
-        <include name="**/*.xml" />
-        <include name="**/*.properties" />
-        <include name="**/*.jfrm" />
-        <!-- jeta form designer files -->
-        <include name="**/*.gif" />
-        <include name="**/*.png" />
-        <include name="**/*.jpg" />
-    </patternset>
-
-    <!-- filesets  resources files in code   -->
-    <fileset id="resources-code" dir="${resources.dir}">
-        <patternset refid="resources-files">
-        </patternset>
-    </fileset>
-    <!-- filesets  resources files in tests   -->
-    <fileset id="resources-test" dir="${resources-test.dir}">
-        <patternset refid="resources-files">
-        </patternset>
-    </fileset>
+	<!--======================================================-->
+	<!-- Usage                                                -->
+	<!--======================================================-->
+	<target name="usage" description="--> Display usage">
+	</target>
 
 
-    <!-- filesets  list of jar to use in compile classpath for code
+	<!--======================================================-->
+	<!-- Clean                                                -->
+	<!--======================================================-->
+	<target name="clean" depends="-init, -clean-target" description="--> Clean build output">
+	</target>
+
+	<!--======================================================-->
+	<!-- Build                                                -->
+	<!--======================================================-->
+	<target name="build" depends="-init,-resolve, -copy-resources-code, -compile-code" description="--> Build (without jaring)">
+	</target>
+	<!--======================================================-->
+	<!-- Build                                                -->
+	<!--======================================================-->
+	<target name="buildtest" depends="-init, -copy-resources-test, -compile-test" description="--> Build test code (without jaring)">
+	</target>
+
+	<!--======================================================-->
+	<!-- Test                                                 -->
+	<!--======================================================-->
+	<target name="test" depends="-init, buildtest" description="--> Execute all tests">
+	</target>
+	<!--======================================================-->
+	<!-- buildall                                             -->
+	<!--======================================================-->
+	<target name="buildall" depends="build, buildtest" description="--> Build (without jaring)">
+	</target>
+
+	<!--======================================================-->
+	<!-- Run                                                  -->
+	<!--======================================================-->
+	<target name="run" description="--> Run compiled application">
+	</target>
+
+	<!--======================================================-->
+	<!-- Jar                                                  -->
+	<!--======================================================-->
+	<target name="jar" description="--> Package jar with application">
+	</target>
+
+	<!--======================================================-->
+	<!-- dist                                                 -->
+	<!--======================================================-->
+	<target name="dist" description="--> Build distribution">
+	</target>
+
+	<!--======================================================-->
+	<!-- javadoc                                              -->
+	<!--======================================================-->
+	<target name="javadoc" description="--> Build javadoc">
+	</target>
+
+	<!--======================================================-->
+	<!-- create-schema                                        -->
+	<!--======================================================-->
+	<target name="generate-schema" description="--> Create database schema script from mapping files">
+	</target>
+
+	<!-- Patternsets declarations     -->
+	<patternset id="resources-files">
+		<include name="**/*.xml" />
+		<include name="**/*.properties" />
+		<include name="**/*.jfrm" />
+		<!-- jeta form designer files -->
+		<include name="**/*.gif" />
+		<include name="**/*.png" />
+		<include name="**/*.jpg" />
+	</patternset>
+
+	<!-- filesets  resources files in code   -->
+	<fileset id="resources-code" dir="${resources.dir}">
+		<patternset refid="resources-files">
+		</patternset>
+	</fileset>
+	<!-- filesets  resources files in tests   -->
+	<fileset id="resources-test" dir="${resources-test.dir}">
+		<patternset refid="resources-files">
+		</patternset>
+	</fileset>
+
+
+	<!-- filesets  list of jar to use in compile classpath for code
                        all of these should also be present in the .classpath file.   -->
 
-    <fileset id="lib.compile.code.fileset" dir="${computed-lib}">
-    	<!-- TODO put list of named jar-->
-        <include name="*.jar" />
-    </fileset>
-	
-    <fileset id="lib.run.code.fileset" dir="${computed-lib}">
-    	<!-- TODO put list of named jar-->
-        <include name="*.jar" />
-    </fileset>
+	<fileset id="lib.compile.code.fileset" dir="${computed-lib}">
+		<!-- TODO put list of named jar-->
+		<include name="*.jar" />
+	</fileset>
 
-    <!-- filesets  list of jar to use in compile classpath for test   -->
-    <fileset id="lib.compile.test.fileset" dir="${computed-lib}">
-    	<!-- TODO put list of named jar-->
-        <include name="*.jar" />
-    </fileset>
+	<fileset id="lib.run.code.fileset" dir="${computed-lib}">
+		<!-- TODO put list of named jar-->
+		<include name="*.jar" />
+	</fileset>
+
+	<!-- filesets  list of jar to use in compile classpath for test   -->
+	<fileset id="lib.compile.test.fileset" dir="${computed-lib}">
+		<!-- TODO put list of named jar-->
+		<include name="*.jar" />
+	</fileset>
 
 	<fileset id="lib.run.test.fileset" dir="${computed-lib}">
-    	<!-- TODO put list of named jar-->
-        <include name="*.jar" />
-    </fileset>
+		<!-- TODO put list of named jar-->
+		<include name="*.jar" />
+	</fileset>
 
 
-    <!-- classpath for compiling code   -->
-    <path id="compile.code.classpath">
-        <fileset refid="lib.compile.code.fileset" />
-    </path>
+	<!-- classpath for compiling code   -->
+	<path id="compile.code.classpath">
+		<fileset refid="lib.compile.code.fileset" />
+	</path>
 
-    <!-- classpath for compiling test   -->
-    <path id="compile.test.classpath">
-        <path refid="compile.code.classpath" />
-        <fileset refid="lib.compile.test.fileset" />
-    </path>
-
-
-    <!-- Internal targets not to be run from command line     -->
+	<!-- classpath for compiling test   -->
+	<path id="compile.test.classpath">
+		<path refid="compile.code.classpath" />
+		<fileset refid="lib.compile.test.fileset" />
+	</path>
 
 
+	<!-- Internal targets not to be run from command line     -->
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -init
          - - - - - - - - - - - - - - - - - -->
-    <target name="-init" depends="-init-target">
-    </target>
+	<target name="-init" depends="-init-target">
+	</target>
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -init-target
           create target subfolders
          - - - - - - - - - - - - - - - - - -->
-    <target name="-init-target">
-        <mkdir dir="${build.dir}" />
-        <mkdir dir="${classes.dir}" />
-        <mkdir dir="${classes-test.dir}" />
-        <mkdir dir="${generated-sources.dir}" />
-        <mkdir dir="${database-schema.dir}" />
-        <mkdir dir="${database.hsqldb.dir}" />
-        <mkdir dir="${codegen-templates}" />
-        <mkdir dir="${computed-lib}" />
-        <mkdir dir="${dist.dir}" />
-        <mkdir dir="${javadoc.dir}" />
-        <mkdir dir="${docs.dir}" />
-    </target>
+	<target name="-init-target">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${classes-test.dir}" />
+		<mkdir dir="${generated-sources.dir}" />
+		<mkdir dir="${database-schema.dir}" />
+		<mkdir dir="${database.hsqldb.dir}" />
+		<mkdir dir="${codegen-templates}" />
+		<mkdir dir="${computed-lib}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${javadoc.dir}" />
+		<mkdir dir="${docs.dir}" />
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -clean-target                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-clean-target">
-        <delete dir="${build.dir}" />
-    </target>
+	<target name="-clean-target">
+		<delete dir="${build.dir}" />
+	</target>
 
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -generate-code                      
                   run automatic code generation if any
          - - - - - - - - - - - - - - - - - -->
-    <target name="-generate-code" depends="-generate-hbm">
+	<target name="-generate-code" depends="-generate-hbm">
 
-    </target>
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -generate-test                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-generate-test" depends="">
+	<target name="-generate-test" depends="">
 
-    </target>
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -compile-code                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-compile-code" depends="-generate-code">
-        <javac destdir="${classes.dir}"
-               srcdir="${src.dir}"
-               debug="${build.debug}"
-        >
-            <classpath refid="compile.code.classpath">
-            </classpath>
-        </javac>
-    </target>
+	<target name="-compile-code" depends="-generate-code">
+		<javac destdir="${classes.dir}" srcdir="${src.dir}" debug="${build.debug}">
+			<classpath refid="compile.code.classpath">
+			</classpath>
+		</javac>
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -compile-test                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-compile-test" depends="-generate-test,-compile-code">
-        <javac destdir="${classes.dir}"
-               srcdir="${src.dir}"
-               debug="${build.debug}"
-        >
-            <classpath refid="compile.test.classpath">
-            </classpath>
-        </javac>
+	<target name="-compile-test" depends="-generate-test,-compile-code">
+		<javac destdir="${classes.dir}" srcdir="${src.dir}" debug="${build.debug}">
+			<classpath refid="compile.test.classpath">
+			</classpath>
+		</javac>
 
-    </target>
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -copy-resources-code                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-copy-resources-code">
-        <copy todir="${classes.dir}">
-            <fileset refid="resources-code">
-            </fileset>
-        </copy>
-    </target>
+	<target name="-copy-resources-code">
+		<copy todir="${classes.dir}">
+			<fileset refid="resources-code">
+			</fileset>
+		</copy>
+	</target>
 
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -copy-resources-test                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-copy-resources-test">
-        <copy todir="${classes-test.dir}">
-            <fileset refid="resources-test">
-            </fileset>
-        </copy>
-    </target>
+	<target name="-copy-resources-test">
+		<copy todir="${classes-test.dir}">
+			<fileset refid="resources-test">
+			</fileset>
+		</copy>
+	</target>
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -generate-hbm                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="-generate-hbm">
+	<target name="-generate-hbm">
 
-    </target>
+	</target>
 
-    <!-- - - - - - - - - - - - - - - - - - 
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -resolve
          - - - - - - - - - - - - - - - - - -->
-    <target name="-resolve">
-        <!--
+	<target name="-resolve">
+		<!--
         <ivy:configure file="${ivyconf.dir}/ivyconf.xml" />
         <ivy:retrieve />
     -->
-    </target>
-    <!-- - - - - - - - - - - - - - - - - - 
+	</target>
+	<!-- - - - - - - - - - - - - - - - - - 
           target: -generate-runtime.properties
      - create runtime.properties file in ${classes.dir}
      -  - name of hsqldb for runtime
         - name of hsqldb for tests
          - - - - - - - - - - - - - - - - - -->
-    <target name="-generate-runtime.properties">
-    </target>
+	<target name="-generate-runtime.properties">
+	</target>
 
 </project>
