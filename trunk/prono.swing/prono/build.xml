@@ -5,13 +5,13 @@
 	<!--======================================================-->
 	<property file="build.properties" />
 	<property file="project.properties" /> 
-	<property file="hibernate.properties" />
-	<property environment="env" /> 
+	<property file="hibernate.properties" /> 
+	<property environment="env" />  
 
  
 	<!--======================================================-->
 	<!-- Properties definition                                -->
-	<!--======================================================-->
+	<!--======================================================--> 
 	<!-- location of tools used during the builds-->
 	<property name="tools.dir" location="${basedir}/tools" />
 
@@ -74,7 +74,7 @@
 
 	<!-- ivy properties -->
 	<property name="ivy.lib.dir" value="${computed-lib}" />
-
+	<property name="ivy.ivyrep.default.ivy.root" value="http://opensvn.csie.org/ivyrepsandbox/"/>
 
 	<!--======================================================-->
 	<!-- Usage                                                -->
@@ -201,12 +201,12 @@
 	</path>
 
 	<!-- Internal targets not to be run from command line     -->
-
+ 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -init
          - - - - - - - - - - - - - - - - - -->
 	<target name="-init" depends="-init-build">
-	</target>
+	</target> 
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -init-target
