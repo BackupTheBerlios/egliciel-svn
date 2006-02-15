@@ -58,7 +58,7 @@
 	<property name="junit.dir" location="${env.ECLIPSE_HOME}/plugins/org.junit_3.8.1" />
 
 	<!-- tasks definitions -->
-	<property name="ivy.jar" value="ivy-1.3-RC1.jar"/>
+	<property name="ivy.jar" value="ivy-1.3-RC2.jar"/>
 
 	<path id="ivy.lib.path">
 		<fileset dir="${tools.dir}" includes="*.jar" />
