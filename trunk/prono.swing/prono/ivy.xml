@@ -10,11 +10,13 @@
         <dependency org="jgoodies" name="binding" rev="1.1"/>
         <dependency org="jgoodies" name="forms" rev="1.0.6"/>
         <dependency org="jgoodies" name="validation" rev="1.1"/>
-        <dependency org="jgoodies" name="looks" rev="2.0-beta"/>
+        <dependency org="jgoodies" name="looks" rev="1.3.2"/>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.2"/>
         <dependency org="infonode" name="idw-gpl" rev="1.4.0"/>
         <dependency org="infonode" name="itp-gpl" rev="1.4.0"/>
         <dependency org="infonode" name="ilf-gpl" rev="1.4.0"/> 
+        <dependency org="springframework" name="springframework" rev="1.2.6"/> 
         <dependency org="hibernate" name="hibernate" rev="3.1.2" conf="default->standalone"/>
+        <dependency org="hibernate" name="hibernate-annotations" rev="3.1beta8" conf="default->lucene"/>
     </dependencies>
-</ivy-module> 
+</ivy-module>  

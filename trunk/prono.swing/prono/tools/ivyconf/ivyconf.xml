@@ -1,16 +1,34 @@
 <ivyconf>
 	<conf defaultResolver="default"/>
+	<!-- public repository:  ivyrep public repository  -->
 	<include url="${ivy.default.conf.dir}/ivyconf-public.xml"/>
-	<property name="ivy.shared.default.root"             value="/opt/prono/ivyrepshared" override="false"/>
-	<property name="ivy.shared.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]" override="false"/>
-	<property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]" override="false"/>
+	
+	<!-- shared repository:  ivyrepsandbox  -->
+	<property name="ivy.shared.default.root"             
+	         value="http://opensvn.csie.org/ivyrepsandbox" override="false"/>
 	<resolvers>
-		<filesystem name="shared">
-			<ivy pattern="${ivy.shared.default.root}/${ivy.shared.default.ivy.pattern}" />
-			<artifact pattern="${ivy.shared.default.root}/${ivy.shared.default.artifact.pattern}" />
-		</filesystem>
+	<ivyrep    name="shared" 
+	        ivyroot="${ivy.shared.default.root}"
+	     ivypattern="[organisation]/[module]/ivy-[revision].xml"
+	        artroot="${ivy.shared.default.root}"
+	     artpattern="[organisation]/[module]/[revision]/[artifact].[ext]"
+	        />
 	</resolvers>
+ 
+	<!-- local repository: local filessystem to test the dependencies byfore committing them to the sandbox-->
+	<property name="ivy.local.default.root"             
+	         value="/opt/prono/ivyreplocal" override="false"/>
+
+	<property name="ivy.local.default.ivy.pattern"      
+	         value="[organisation]/[module]/ivy-[revision].xml" override="false"/>
+
+	<property name="ivy.local.default.artifact.pattern" 
+	         value="[organisation]/[module]/[revision]/[artifact].[ext]" override="false"/>
+         
+
 	<include url="${ivy.default.conf.dir}/ivyconf-local.xml"/>
 	<include url="${ivy.default.conf.dir}/ivyconf-main-chain.xml"/>
 	<include url="${ivy.default.conf.dir}/ivyconf-default-chain.xml"/>
 </ivyconf>
+
+ 
