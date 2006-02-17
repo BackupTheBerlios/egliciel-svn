@@ -92,7 +92,7 @@
 	<!--======================================================-->
 	<!-- Build                                                -->
 	<!--======================================================-->
-	<target name="build" depends="-init,-resolve, -copy-resources-code, -compile-code" description="--> Build (without jaring)">
+	<target name="build" depends="-init, -copy-resources-code, -compile-code" description="--> Build (without jaring)">
 	</target>
 	<!--======================================================-->
 	<!-- Build                                                -->
@@ -140,7 +140,13 @@
 	<!--======================================================-->
 	<target name="generate-schema" description="--> Create database schema script from mapping files">
 	</target>
+	<!--======================================================-->
+	<!-- resolve ivy dependencies                             -->
+	<!--======================================================-->
+	<target name="resolve" depends="-resolve" description="--> Create database schema script from mapping files">
+	</target>
 
+	
 	<!-- Patternsets declarations     -->
 	<patternset id="resources-files">
 		<include name="**/*.xml" />

@@ -16,7 +16,7 @@
         <dependency org="infonode" name="itp-gpl" rev="1.4.0"/>
         <dependency org="infonode" name="ilf-gpl" rev="1.4.0"/> 
         <dependency org="springframework" name="springframework" rev="1.2.6"/> 
-        <dependency org="hibernate" name="hibernate" rev="3.1.2" conf="default->standalone"/>
+        <dependency org="hibernate" name="hibernate" rev="3.1.2" conf="default->standalone,c3p0"/>
         <dependency org="hibernate" name="hibernate-annotations" rev="3.1beta8" conf="default->lucene"/>
     </dependencies>
 </ivy-module>  
