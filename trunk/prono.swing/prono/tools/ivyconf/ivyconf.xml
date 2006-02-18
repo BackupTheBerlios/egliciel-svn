@@ -1,34 +1,47 @@
 <ivyconf>
-	<conf defaultResolver="default"/>
+	<conf defaultResolver="default" />
 	<!-- public repository:  ivyrep public repository  -->
-	<include url="${ivy.default.conf.dir}/ivyconf-public.xml"/>
-	
+	<include url="${ivy.default.conf.dir}/ivyconf-public.xml" />
+
 	<!-- shared repository:  ivyrepsandbox  -->
-	<property name="ivy.shared.default.root"             
-	         value="http://opensvn.csie.org/ivyrepsandbox" override="false"/>
+	<property name="ivy.shared.default.root"
+		value="http://opensvn.csie.org/ivyrepsandbox" override="false" />
 	<resolvers>
-	<ivyrep    name="shared" 
-	        ivyroot="${ivy.shared.default.root}"
-	     ivypattern="[organisation]/[module]/ivy-[revision].xml"
-	        artroot="${ivy.shared.default.root}"
-	     artpattern="[organisation]/[module]/[revision]/[artifact].[ext]"
-	        />
+		<ivyrep name="shared" ivyroot="${ivy.shared.default.root}"
+			ivypattern="[organisation]/[module]/ivy-[revision].xml"
+			artroot="${ivy.shared.default.root}"
+			artpattern="[organisation]/[module]/[revision]/[artifact].[ext]" />
 	</resolvers>
- 
+	<!-- project repository:  Same as ivyrepsandbox but in project's subversion repository -->
+	<resolvers>
+		<ivyrep name="project"
+			ivyroot="http://openSVN.csie.org/prono/ivyrepprono"
+			ivypattern="[organisation]/[module]/ivy-[revision].xml"
+			artroot="http://openSVN.csie.org/prono/ivyrepprono"
+			artpattern="[organisation]/[module]/[revision]/[artifact].[ext]" />
+	</resolvers>
+
 	<!-- local repository: local filessystem to test the dependencies byfore committing them to the sandbox-->
-	<property name="ivy.local.default.root"             
-	         value="/opt/prono/ivyreplocal" override="false"/>
+	<property name="ivy.local.default.root"
+		value="/opt/prono/ivyreplocal" override="false" />
 
-	<property name="ivy.local.default.ivy.pattern"      
-	         value="[organisation]/[module]/ivy-[revision].xml" override="false"/>
+	<property name="ivy.local.default.ivy.pattern"
+		value="[organisation]/[module]/ivy-[revision].xml" override="false" />
 
-	<property name="ivy.local.default.artifact.pattern" 
-	         value="[organisation]/[module]/[revision]/[artifact].[ext]" override="false"/>
-         
+	<property name="ivy.local.default.artifact.pattern"
+		value="[organisation]/[module]/[revision]/[artifact].[ext]"
+		override="false" />
 
-	<include url="${ivy.default.conf.dir}/ivyconf-local.xml"/>
-	<include url="${ivy.default.conf.dir}/ivyconf-main-chain.xml"/>
-	<include url="${ivy.default.conf.dir}/ivyconf-default-chain.xml"/>
+
+	<include url="${ivy.default.conf.dir}/ivyconf-local.xml" />
+	<resolvers>
+		<chain name="main" dual="true">
+			<resolver ref="project" />
+			<resolver ref="shared" />
+			<resolver ref="public" />
+		</chain>
+	</resolvers>
+	<!-- 	<include url="${ivy.default.conf.dir}/ivyconf-main-chain.xml"/>-->
+	<include url="${ivy.default.conf.dir}/ivyconf-default-chain.xml" />
 </ivyconf>
 
- 
